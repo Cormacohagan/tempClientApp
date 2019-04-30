@@ -1,0 +1,219 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+
+<!-- Imports & Settings -->
+<html> <!--<![endif]-->
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-resource.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.js"></script>
+    <script src="/public/components/angular-init/angularApp.js"></script>
+    <script src="/public/pages/home/homeController.js"></script>
+
+    <!-- <script src="/node_modules/angular/angular.js"></script> -->
+
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+</head>
+
+<body ng-app="ethAppCtrl" ng-controller="homeCtrl">
+
+
+    <!-- Top bar -->
+    <section class="blockPageFooter" style="height:10%;background: linear-gradient(180deg, rgb(66,63,63) 5%, rgb(0, 0, 0)100%);">
+
+    </section>
+
+
+
+    <section class="stage" id="stageRow">
+        <div class="borders"></div>
+
+        <div class="mainStage" id="mainStage" style="background-color:#231f1f;">
+
+
+            <button ng-if="!setupBool" class="fade startBtn" ng-click="loadHomePage()" id="startBtn"> Start Car </button>
+            <!--
+            <button ng-if="!setupBool" class="fade startBtn" ng-click="start()" id="startBtn"> Start Car </button>
+            -->
+
+            <!-- Setup Box 1 (Setup Screen) -->
+            <div ng-if="setupStage1" class="fade setupBoxes" id="setupBox1">
+
+                <div class="setupBoxBody">
+
+                    <div class="setupBoxHeaderText">
+                        <h3>Welcome to your car!</h3>
+                    </div>
+
+                    <div class="setupBoxBodyText">
+                        <h4>
+                            You'll be able to customize some features of your new vehicle,
+                            <br>
+                            as well as trying out our exciting new AutoFuel® service!
+                            <br><br><br>
+                            Please follow the instructions ahead, and fill out each field.
+                            <br>
+                            You won't be able to drive your car until setup is complete!
+                        </h4>
+                    </div>
+
+                </div>
+
+                <div class="setupBoxButtons">
+                    <div ng-click="backToStart()" class="setupButton" style="margin-right:20px;">
+                        Back
+                    </div>
+                    <div ng-click="personalInfo()" class="setupButton">
+                        Next
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- Setup Box 2 (Personal Details) -->
+            <div ng-if="setupStage2" class="fade setupBoxes" id="setupBox2">
+
+                <div class="setupBoxBody">
+                    <!-- Forename Text/Box -->
+                    <div class="boxContentRow">
+                        <div class="boxContentRowItem" style="width:60%;">
+                            <div class="setupBoxBodyText">
+                                <h4> Forename </h4>
+                            </div>
+
+                            <div class="txtField">
+                                <input id="forenameText" type="text" class="txtContent" placeholder="{{forename}}">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Surname Text/Box -->
+                    <div class="boxContentRow">
+                        <div class="boxContentRowItem" style="width:60%;">
+
+                            <div class="setupBoxBodyText">
+                                <h4> Surname </h4>
+                            </div>
+
+                            <div class="txtField">
+                                <input id="surnameText" type="text" class="txtContent" placeholder="{{surname}}">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- buttons -->
+                <div class="setupBoxButtons">
+                    <div ng-click="backToSplash()" class="setupButton" style="margin-right:20px;">
+                        Back
+                    </div>
+                    <div ng-click="settings()" class="setupButton">
+                        Next
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Setup Box 3 (Settings) -->
+            <div ng-if="setupStage3" class="fade setupBoxes" id="setupBox3">
+                <div class="setupBoxBody">
+                    <div class="boxContentRow">
+                        <div class="boxContentRowItem" style="width:60%;">
+
+                            <div class="setupBoxBodyText">
+                                <h4> Slide to Adjust Background Brightness </h4>
+                            </div>
+
+                            <input type="range" min="1" max="12" class="slider" id="blSlider"
+                                   ng-model="brightnessField" ng-change="updateBackground(brightnessField)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setupBoxButtons">
+                    <div ng-click="backToPersonal()"class="setupButton" style="margin-right:20px;">
+                        Back
+                    </div>
+                    <div ng-click="wallet()" class="setupButton">
+                        Next
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Setup Box 4 (Wallet) -->
+            <div ng-if="setupStage4" class="fade setupBoxes" id="setupBox4">
+                <div class="setupBoxBody">
+                    <div class="boxContentRow">
+                        <div class="boxContentRowItem" style="width:60%;">
+                            <div class="setupBoxBodyText">
+                                <h4> Please enter a secure password for your new wallet. </h4>
+                            </div>
+
+                            <div class="txtField" style="margin-top:0px;">
+                                <input id="passwordText" type="password" class="txtContent" placeholder="">
+                            </div>
+
+                            <div ng-click="createWallet()" class="setupButton" style="margin-top:20px;">
+                                Create Wallet
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="setupBoxButtons">
+                    <div ng-click="backToSettings()" class="setupButton" style="margin-right:20px;">
+                        Back
+                    </div>
+                    <div ng-click="completeSetup()" class="setupButton">
+                        Finish Setup
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Main GUI -->
+            <div ng-if="homePage" class="fade boxContentRowItem" style="width:100%; background-color:green;">
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+        <div class="borders"></div>
+    </section>
+
+
+
+
+    <!-- Bottom bar -->
+    <section class="blockPageFooter" style="height:10%;">
+
+    </section>
+
+</body>
+</html>
